@@ -4,7 +4,7 @@ FROM node:22-alpine AS deps
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # ─── Stage 2: Builder ─────────────────────────────────────────────────────────
 FROM node:22-alpine AS builder
@@ -34,7 +34,7 @@ COPY --from=builder --chown=svelte:nodejs /app/build ./build
 COPY --from=builder --chown=svelte:nodejs /app/package.json ./package.json
 
 # Install only production deps for the Node server
-RUN npm install --omit=dev --ignore-scripts
+RUN npm install --omit=dev --ignore-scripts --legacy-peer-deps
 
 USER svelte
 
