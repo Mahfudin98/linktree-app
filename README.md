@@ -60,7 +60,7 @@ linktree-app/
 │   ├── Dockerfile              # Multi-stage production build
 │   └── package.json
 │
-├── docker-compose.yml          # Orchestration for all 3 services
+├── docker-compose.yaml          # Orchestration for all 3 services
 ├── .env.example                # Environment variables template
 └── README.md
 ```
@@ -85,7 +85,7 @@ cp .env.example .env
 ### 2. Run with Docker (Production)
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 Services will start in order:
@@ -102,7 +102,7 @@ Services will start in order:
 ### 3. Seed Demo Data (optional)
 
 ```bash
-docker-compose exec backend npm run db:seed
+docker compose exec backend npm run db:seed
 ```
 
 This creates 3 demo accounts:
