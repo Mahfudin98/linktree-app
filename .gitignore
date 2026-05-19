@@ -1,0 +1,9 @@
+.env
+node_modules
+*/node_modules
+*/dist
+*/build
+*/.svelte-kit
+*.log
+uploads
+postgres_data
