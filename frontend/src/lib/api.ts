@@ -18,10 +18,6 @@ async function fetchJSON<T>(
   const { fetch: _, ...fetchOptions } = options;
   const url = `${BASE_URL}${path}`;
 
-  console.log(`[API Request] fetching ${url}`, {
-    method: fetchOptions.method || "GET",
-    hasHeaders: !!fetchOptions.headers,
-  });
 
   try {
     const response = await fetchFn(url, {
@@ -33,14 +29,12 @@ async function fetchJSON<T>(
       },
     });
 
-    console.log(`[API Response] ${url} status: ${response.status}`);
 
     if (!response.ok) {
       console.error(`[API Error] ${url} failed with status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(`[API Body] received data for ${url}:`, data);
     return data as ApiResponse<T>;
   } catch (err) {
     console.error(`[API Exception] ${url} threw an exception:`, err);

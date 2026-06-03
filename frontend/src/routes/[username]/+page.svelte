@@ -28,7 +28,6 @@
       ? profile.templateSlug
       : DEFAULT_TEMPLATE;
 
-    console.log(`[$effect] loading template "${slug}" for profile:`, profile);
 
     loading = true;
     templateError = false;
@@ -37,7 +36,6 @@
       .then((mod) => {
         TemplateComponent = (mod as { default: ComponentType }).default;
         loading = false;
-        console.log(`[$effect] template "${slug}" loaded successfully.`);
       })
       .catch((err) => {
         console.error(`[$effect] Failed to load template "${slug}"`, err);

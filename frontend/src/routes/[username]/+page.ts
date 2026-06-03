@@ -5,11 +5,9 @@ import type { ProfileData } from "$lib/types";
 
 export const load: PageLoad = async ({ params, fetch }) => {
   const { username } = params;
-  console.log(`[Loader] loading profile for @${username} on server/client...`);
 
   try {
     const response = await profileApi.getByUsername(username, fetch);
-    console.log(`[Loader] API response received for @${username}:`, response);
 
     if (!response.success || !response.data) {
       console.error(`[Loader] @${username} profile fetch returned failure or empty data:`, response);
@@ -18,7 +16,6 @@ export const load: PageLoad = async ({ params, fetch }) => {
       });
     }
 
-    console.log(`[Loader] @${username} loaded successfully:`, response.data);
 
     return {
       profile: response.data as ProfileData,

@@ -22,16 +22,13 @@
   $effect(() => {
     const token = localStorage.getItem("lt_token");
     if (!token) {
-      console.log("[$effect Dashboard] No token found, redirecting to login...");
       goto("/auth/login");
       return;
     }
 
-    console.log("[$effect Dashboard] Token found, fetching own profile...");
-    
+
     profileApi.getOwn()
       .then((res) => {
-        console.log("[$effect Dashboard] Profile fetch response:", res);
         if (!res.success || !res.data) {
           goto("/auth/login");
           return;
