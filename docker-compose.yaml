@@ -17,7 +17,8 @@ services:
       JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-key-change-in-production-min-32-chars}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
-    # Port 3001 TIDAK di-expose — traffic masuk lewat Traefik/reverse proxy
+    ports:
+      - "3001:3001"
     networks:
       - linktree_net
       - coolify
@@ -46,6 +47,8 @@ services:
     # Tambahkan alias lokal agar SvelteKit SSR tidak timeout saat me-request API via domain publik
     extra_hosts:
       - "m6i06e9s6magrjou8hlqd4g2.lsskincare.cloud:host-gateway"
+    ports:
+      - "3000:3000"
     depends_on:
       backend:
         condition: service_healthy
