@@ -11,11 +11,18 @@ import { authMiddleware } from "./lib/jwt";
 import { prisma } from "./lib/db";
 
 const app = new Hono();
+const isDev = process.env.NODE_ENV !== "production";
 
 // ─── Global Middleware ────────────────────────────────────────────────────────
-app.use("*", logger());
+// Logger hanya aktif di development agar console tidak penuh di production
+if (isDev) {
+  app.use("*", logger());
+}
 app.use("*", secureHeaders());
-app.use("*", prettyJSON());
+// prettyJSON hanya di development untuk kemudahan debugging
+if (isDev) {
+  app.use("*", prettyJSON());
+}
 app.use(
   "*",
   cors({
