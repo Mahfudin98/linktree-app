@@ -42,8 +42,10 @@ services:
       PORT: 3000
       # PUBLIC_ prefix makes it available in browser too (SvelteKit convention)
       PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:3001}
-    ports:
-      - "3000:3000"
+    # Hapus mapping port publik agar tidak bentrok, gunakan routing internal Traefik/Coolify
+    # Tambahkan alias lokal agar SvelteKit SSR tidak timeout saat me-request API via domain publik
+    extra_hosts:
+      - "m6i06e9s6magrjou8hlqd4g2.lsskincare.cloud:host-gateway"
     depends_on:
       backend:
         condition: service_healthy
