@@ -30,8 +30,11 @@ app.use(
       const allowedOrigins = (
         process.env.CORS_ORIGIN || "http://localhost:5173"
       ).split(",");
+      
+      // Jika origin tidak ada (misal dari server-to-server), izinkan.
+      // Jika origin ada di list, izinkan dengan mengembalikan origin tersebut.
       if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes("*")) {
-        return origin || "*";
+        return origin || allowedOrigins[0]; 
       }
       return null;
     },
