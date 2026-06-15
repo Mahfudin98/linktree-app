@@ -64,6 +64,9 @@
             rel="noopener noreferrer"
             class="flex items-center justify-center w-8 h-8 rounded-sm text-cyan-400/60 bg-cyan-400/5 border border-cyan-400/20 no-underline transition-all duration-150 hover:bg-cyan-400/10 hover:text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_10px_rgba(0,255,255,0.3)]"
             aria-label={social.platform}
+            data-umami-event="click_social"
+            data-umami-event-platform={social.platform}
+            data-umami-event-url={social.url}
           >
             <CustomIcon name={social.platform} size={15} />
           </a>
@@ -83,6 +86,9 @@
           style="animation-delay: {i * 90}ms"
           on:mouseenter={() => hovered = link.id}
           on:mouseleave={() => hovered = null}
+          data-umami-event="click_link"
+          data-umami-event-title={link.title}
+          data-umami-event-url={link.url}
         >
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-400/5 to-transparent -translate-x-[100%] transition-transform duration-400 group-hover:translate-x-[100%]"></div>
           <span class="text-[#ff0080] text-[0.7rem] shrink-0 min-w-[30px]">[{String(i + 1).padStart(2, "0")}]</span>

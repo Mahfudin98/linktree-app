@@ -35,6 +35,9 @@
             rel="noopener noreferrer"
             class="flex items-center justify-center w-9 h-9 rounded-lg text-zinc-600 bg-zinc-100 transition-all duration-200 no-underline hover:bg-zinc-900 hover:text-white hover:-translate-y-0.5"
             aria-label={social.platform}
+            data-umami-event="click_social"
+            data-umami-event-platform={social.platform}
+            data-umami-event-url={social.url}
           >
             <CustomIcon name={social.platform} size={18} />
           </a>
@@ -51,6 +54,9 @@
           rel="noopener noreferrer"
           class="group flex items-center gap-3 py-4 px-5 bg-white border-[1.5px] border-zinc-200 rounded-xl no-underline text-zinc-900 font-medium text-[0.9rem] transition-all duration-200 animate-[slideUp_0.4s_ease_both] hover:border-zinc-900 hover:bg-zinc-900 hover:text-white hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
           style="animation-delay: {i * 60}ms"
+          data-umami-event="click_link"
+          data-umami-event-title={link.title}
+          data-umami-event-url={link.url}
         >
           <span class="flex items-center shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
             <CustomIcon name={link.icon} size={16} />

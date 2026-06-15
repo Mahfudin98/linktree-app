@@ -41,6 +41,9 @@
             rel="noopener noreferrer"
             class="flex items-center justify-center w-[34px] h-[34px] rounded-lg text-white/70 bg-white/10 backdrop-blur-md border border-white/10 no-underline transition-all duration-200 hover:bg-white/20 hover:text-white hover:-translate-y-0.5 hover:shadow-[0_4px_15px_rgba(124,58,237,0.4)]"
             aria-label={social.platform}
+            data-umami-event="click_social"
+            data-umami-event-platform={social.platform}
+            data-umami-event-url={social.url}
           >
             <CustomIcon name={social.platform} size={16} />
           </a>
@@ -57,6 +60,9 @@
           rel="noopener noreferrer"
           class="group flex items-center gap-3 py-4 px-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl no-underline text-white/90 font-medium text-[0.9rem] transition-all duration-300 animate-[fadeInUp_0.5s_ease_both] relative overflow-hidden hover:border-violet-600/50 hover:-translate-y-[3px] hover:shadow-[0_12px_40px_rgba(124,58,237,0.25),0_0_0_1px_rgba(124,58,237,0.3)] hover:text-white"
           style="animation-delay: {i * 80}ms"
+          data-umami-event="click_link"
+          data-umami-event-title={link.title}
+          data-umami-event-url={link.url}
         >
           <div class="absolute inset-0 bg-gradient-to-br from-violet-600/15 to-pink-600/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
           <span class="flex items-center shrink-0 opacity-70 relative z-10">
