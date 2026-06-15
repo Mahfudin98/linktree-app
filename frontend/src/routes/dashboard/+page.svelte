@@ -168,7 +168,7 @@
         'profile'
           ? 'bg-zinc-900 text-white'
           : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'}"
-        on:click={() => (activeTab = "profile")}
+        onclick={() => (activeTab = "profile")}
         id="tab-profile"
       >
         <span class="text-base">👤</span> Profile
@@ -178,7 +178,7 @@
         'links'
           ? 'bg-zinc-900 text-white'
           : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'}"
-        on:click={() => (activeTab = "links")}
+        onclick={() => (activeTab = "links")}
         id="tab-links"
       >
         <span class="text-base">🔗</span> Links
@@ -188,7 +188,7 @@
         'template'
           ? 'bg-zinc-900 text-white'
           : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'}"
-        on:click={() => (activeTab = "template")}
+        onclick={() => (activeTab = "template")}
         id="tab-template"
       >
         <span class="text-base">🎨</span> Template
@@ -208,7 +208,7 @@
       {/if}
       <button
         class="p-2.5 bg-transparent border-[1.5px] border-red-200 text-red-600 rounded-xl text-[0.8rem] font-semibold transition-colors cursor-pointer hover:bg-red-50 whitespace-nowrap"
-        on:click={logout}
+        onclick={logout}
         id="logout-btn">Sign Out</button
       >
     </div>
@@ -241,7 +241,7 @@
           {/if}
           <button
             class="px-5 py-2.5 bg-zinc-900 text-white border-none rounded-xl text-[0.875rem] font-semibold cursor-pointer transition-colors hover:not-disabled:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed"
-            on:click={saveProfile}
+            onclick={saveProfile}
             disabled={saving}
             id="save-profile-btn"
           >
@@ -308,7 +308,7 @@
               <h3 class="text-base font-bold text-zinc-900">Social Links</h3>
               <button
                 class="px-4 py-2 bg-zinc-100 border-[1.5px] border-zinc-200 rounded-lg text-[0.82rem] font-semibold text-zinc-700 cursor-pointer transition-colors hover:bg-zinc-200"
-                on:click={addSocial}
+                onclick={addSocial}
                 id="add-social-btn">+ Add Social</button
               >
             </div>
@@ -331,7 +331,7 @@
                 />
                 <button
                   class="p-2.5 bg-transparent border-[1.5px] border-red-200 text-red-600 rounded-lg text-[0.75rem] cursor-pointer shrink-0 transition-colors hover:bg-red-50"
-                  on:click={() => removeSocial(i)}>✕</button
+                  onclick={() => removeSocial(i)}>✕</button
                 >
               </div>
             {/each}
@@ -345,7 +345,7 @@
             <h3 class="text-base font-bold text-zinc-900">Your Links</h3>
             <button
               class="px-4 py-2 bg-zinc-100 border-[1.5px] border-zinc-200 rounded-lg text-[0.82rem] font-semibold text-zinc-700 cursor-pointer transition-colors hover:bg-zinc-200"
-              on:click={addLink}
+              onclick={addLink}
               id="add-link-btn">+ Add Link</button
             >
           </div>
@@ -389,7 +389,7 @@
               </div>
               <button
                 class="p-2 bg-transparent border-[1.5px] border-red-200 text-red-600 rounded-lg text-[0.75rem] cursor-pointer shrink-0 hover:bg-red-50 self-end sm:self-auto"
-                on:click={() => removeLink(i)}>✕</button
+                onclick={() => removeLink(i)}>✕</button
               >
             </div>
           {/each}
@@ -404,7 +404,7 @@
               tmpl.slug
                 ? 'border-zinc-900 ring-2 ring-zinc-900/10'
                 : 'border-zinc-200 hover:border-zinc-400 hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]'}"
-              on:click={() => (formTemplate = tmpl.slug)}
+              onclick={() => (formTemplate = tmpl.slug)}
               id="template-option-{tmpl.slug}"
             >
               <div
