@@ -4,6 +4,8 @@
   import { profileApi } from "$lib/api";
   import { TEMPLATE_META } from "$lib/templates/index";
   import type { ProfileData, Link, SocialLink } from "$lib/types";
+  import { dndzone } from "svelte-dnd-action";
+  import { flip } from "svelte/animate";
 
   let profile = $state<ProfileData | null>(null);
   let loading = $state(true);
@@ -78,6 +80,15 @@
     formSocials = formSocials.filter((_, i) => i !== index);
   }
 
+  function handleDndConsider(e: any) {
+    formLinks = e.detail.items;
+  }
+
+  function handleDndFinalize(e: any) {
+    formLinks = e.detail.items;
+  }
+  const flipDurationMs = 300;
+
   async function saveProfile() {
     saving = true;
     saveMessage = "";
@@ -122,6 +133,8 @@
     "linkedin",
     "mail",
     "terminal",
+    "phone",
+    "message",
     "shopee",
     "tokopedia",
     "bukalapak",
@@ -353,46 +366,58 @@
             <div class="text-center p-8 text-zinc-400 text-[0.875rem]">
               <p>No links yet. Add your first link!</p>
             </div>
-          {/if}
-          {#each formLinks as link, i}
+          {:else}
             <div
-              class="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-4 bg-white border-[1.5px] border-zinc-200 rounded-xl"
+              use:dndzone={{ items: formLinks, flipDurationMs, dropTargetStyle: {} }}
+              onconsider={handleDndConsider}
+              onfinalize={handleDndFinalize}
+              class="flex flex-col gap-5"
             >
-              <span
-                class="text-[0.75rem] font-bold text-zinc-400 min-w-[20px] pt-2 sm:pt-0"
-                >{i + 1}</span
-              >
-              <div
-                class="flex-1 grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-2 w-full"
-              >
-                <input
-                  type="text"
-                  bind:value={link.title}
-                  placeholder="Link title"
-                  class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
-                />
-                <input
-                  type="url"
-                  bind:value={link.url}
-                  placeholder="https://..."
-                  class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
-                />
-                <select
-                  bind:value={link.icon}
-                  class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 cursor-pointer w-full sm:max-w-[120px]"
+              {#each formLinks as link, i (link.id)}
+                <div
+                  animate:flip={{ duration: flipDurationMs }}
+                  class="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-4 bg-white border-[1.5px] border-zinc-200 rounded-xl relative group"
                 >
-                  <option value="">Icon...</option>
-                  {#each ICON_OPTIONS as icon}
-                    <option value={icon}>{icon}</option>
-                  {/each}
-                </select>
-              </div>
-              <button
-                class="p-2 bg-transparent border-[1.5px] border-red-200 text-red-600 rounded-lg text-[0.75rem] cursor-pointer shrink-0 hover:bg-red-50 self-end sm:self-auto"
-                onclick={() => removeLink(i)}>✕</button
-              >
+                  <div class="flex items-center gap-2 pt-2 sm:pt-0 self-start sm:self-center">
+                    <span class="text-zinc-400 cursor-grab active:cursor-grabbing hover:text-zinc-600 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip-vertical"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>
+                    </span>
+                    <span class="text-[0.75rem] font-bold text-zinc-400 min-w-[16px] text-center">{i + 1}</span>
+                  </div>
+                  
+                  <div
+                    class="flex-1 grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] gap-2 w-full"
+                  >
+                    <input
+                      type="text"
+                      bind:value={link.title}
+                      placeholder="Link title"
+                      class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
+                    />
+                    <input
+                      type="url"
+                      bind:value={link.url}
+                      placeholder="https://..."
+                      class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
+                    />
+                    <select
+                      bind:value={link.icon}
+                      class="p-2.5 border-[1.5px] border-zinc-200 rounded-lg text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 cursor-pointer w-full sm:max-w-[120px]"
+                    >
+                      <option value="">Icon...</option>
+                      {#each ICON_OPTIONS as icon}
+                        <option value={icon}>{icon}</option>
+                      {/each}
+                    </select>
+                  </div>
+                  <button
+                    class="p-2 bg-transparent border-[1.5px] border-red-200 text-red-600 rounded-lg text-[0.75rem] cursor-pointer shrink-0 hover:bg-red-50 self-end sm:self-auto"
+                    onclick={() => removeLink(i)}>✕</button
+                  >
+                </div>
+              {/each}
             </div>
-          {/each}
+          {/if}
         </div>
 
         <!-- ── Template Tab ── -->
