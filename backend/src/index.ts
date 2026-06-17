@@ -9,6 +9,7 @@ import { auth } from "./routes/auth";
 import { publicProfile, protectedProfile } from "./routes/profile";
 import { authMiddleware } from "./lib/jwt";
 import { prisma } from "./lib/db";
+import { setupCors } from "./lib/cors";
 
 const app = new Hono();
 const isDev = process.env.NODE_ENV !== "production";
@@ -23,28 +24,7 @@ app.use("*", secureHeaders());
 if (isDev) {
   app.use("*", prettyJSON());
 }
-app.use(
-  "*",
-  cors({
-    origin: (origin) => {
-      const allowedOrigins = (
-        process.env.CORS_ORIGIN || "http://localhost:5173"
-      ).split(",");
-      
-      // Jika origin tidak ada (misal dari server-to-server), izinkan.
-      // Jika origin ada di list, izinkan dengan mengembalikan origin tersebut.
-      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes("*")) {
-        return origin || allowedOrigins[0]; 
-      }
-      return null;
-    },
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowHeaders: ["Content-Type", "Authorization"],
-    exposeHeaders: ["X-Total-Count"],
-    credentials: true,
-    maxAge: 600,
-  })
-);
+setupCors(app);
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get("/health", async (c) => {
