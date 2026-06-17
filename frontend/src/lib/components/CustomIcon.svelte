@@ -11,6 +11,8 @@
     Mail,
     Terminal,
     ShoppingBag,
+    Phone,
+    MessageCircle,
   } from "lucide-svelte";
   import type { ComponentType } from "svelte";
   import TokopediaOwl from "$lib/assets/tokped.png";
@@ -37,6 +39,8 @@
     linkedin: Linkedin,
     mail: Mail,
     terminal: Terminal,
+    phone: Phone,
+    message: MessageCircle,
     shoppingbag: ShoppingBag,
   };
 </script>
