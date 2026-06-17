@@ -24,6 +24,9 @@ export interface ProfileData {
   bio: string | null;
   avatar: string | null;
   templateSlug: string;
+  umamiShareUrl?: string | null;
+  umamiScriptUrl?: string | null;
+  umamiWebsiteId?: string | null;
   links: Link[];
   socials: SocialLink[];
 }

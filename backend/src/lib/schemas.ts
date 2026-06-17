@@ -50,6 +50,9 @@ export const updateProfileSchema = z.object({
     .enum(["minimalist", "glassmorphism", "cyberpunk"])
     .optional(),
   isPublic: z.boolean().optional(),
+  umamiShareUrl: z.string().url("Invalid URL").or(z.literal("")).optional().nullable(),
+  umamiScriptUrl: z.string().url("Invalid URL").or(z.literal("")).optional().nullable(),
+  umamiWebsiteId: z.string().min(1, "Invalid Website ID").or(z.literal("")).optional().nullable(),
   links: z.array(linkSchema).optional(),
   socials: z.array(socialLinkSchema).optional(),
 });

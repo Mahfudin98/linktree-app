@@ -65,6 +65,10 @@
   {#if profile.avatar}
     <meta property="og:image" content={profile.avatar} />
   {/if}
+  
+  {#if profile.umamiScriptUrl && profile.umamiWebsiteId}
+    <script defer src={profile.umamiScriptUrl} data-website-id={profile.umamiWebsiteId}></script>
+  {/if}
 </svelte:head>
 
 {#if loading}

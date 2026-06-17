@@ -11,13 +11,16 @@
   let loading = $state(true);
   let saving = $state(false);
   let saveMessage = $state("");
-  let activeTab = $state<"profile" | "links" | "template">("profile");
+  let activeTab = $state<"profile" | "links" | "template" | "analytics">("profile");
 
   // Form state
   let formName = $state("");
   let formBio = $state("");
   let formAvatar = $state("");
   let formTemplate = $state("minimalist");
+  let formUmamiShareUrl = $state("");
+  let formUmamiScriptUrl = $state("");
+  let formUmamiWebsiteId = $state("");
   let formLinks = $state<Link[]>([]);
   let formSocials = $state<SocialLink[]>([]);
 
@@ -41,6 +44,9 @@
         formBio = profile.bio ?? "";
         formAvatar = profile.avatar ?? "";
         formTemplate = profile.templateSlug;
+        formUmamiShareUrl = profile.umamiShareUrl ?? "";
+        formUmamiScriptUrl = profile.umamiScriptUrl ?? "";
+        formUmamiWebsiteId = profile.umamiWebsiteId ?? "";
         formLinks = [...profile.links];
         formSocials = [...profile.socials];
         loading = false;
@@ -99,6 +105,9 @@
         bio: formBio || null,
         avatar: formAvatar || null,
         templateSlug: formTemplate,
+        umamiShareUrl: formUmamiShareUrl || null,
+        umamiScriptUrl: formUmamiScriptUrl || null,
+        umamiWebsiteId: formUmamiWebsiteId || null,
         links: formLinks.map((l, i) => ({ ...l, order: i })),
         socials: formSocials,
       } as unknown as Partial<ProfileData>);
@@ -206,6 +215,16 @@
       >
         <span class="text-base">🎨</span> Template
       </button>
+      <button
+        class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border-none bg-transparent text-sm font-medium transition-colors text-left whitespace-nowrap {activeTab ===
+        'analytics'
+          ? 'bg-zinc-900 text-white'
+          : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'}"
+        onclick={() => (activeTab = "analytics")}
+        id="tab-analytics"
+      >
+        <span class="text-base">📊</span> Analytics
+      </button>
     </nav>
 
     <div class="flex flex-row md:flex-col gap-2 md:mt-auto">
@@ -242,7 +261,9 @@
             ? "Edit Profile"
             : activeTab === "links"
               ? "Manage Links"
-              : "Choose Template"}
+              : activeTab === "template"
+                ? "Choose Template"
+                : "Analytics"}
         </h1>
         <div class="flex items-center gap-3.5">
           {#if saveMessage}
@@ -418,6 +439,67 @@
               {/each}
             </div>
           {/if}
+        </div>
+
+        <!-- ── Analytics Tab ── -->
+      {:else if activeTab === "analytics"}
+        <div class="flex flex-col gap-6">
+          <div class="p-6 bg-white border-[1.5px] border-zinc-200 rounded-xl flex flex-col gap-5">
+            <h3 class="text-lg font-bold text-zinc-900 m-0">Personal Tracking Script</h3>
+            <p class="text-[0.875rem] text-zinc-500 m-0 leading-relaxed">
+              Add your own Umami script URL and Website ID to track visitors on your LinkTree page.
+            </p>
+            <div class="flex flex-col gap-1.5">
+              <label for="dash-umami-script" class="text-[0.82rem] font-semibold text-zinc-700">Script URL</label>
+              <input
+                id="dash-umami-script"
+                type="url"
+                bind:value={formUmamiScriptUrl}
+                placeholder="e.g. https://umami-selfhost.lsskincare.cloud/script.js"
+                class="p-3 border-[1.5px] border-zinc-200 rounded-xl text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
+              />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for="dash-umami-website" class="text-[0.82rem] font-semibold text-zinc-700">Website ID</label>
+              <input
+                id="dash-umami-website"
+                type="text"
+                bind:value={formUmamiWebsiteId}
+                placeholder="e.g. 4a41817c-d8ac-..."
+                class="p-3 border-[1.5px] border-zinc-200 rounded-xl text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
+              />
+            </div>
+          </div>
+
+          <div class="p-6 bg-white border-[1.5px] border-zinc-200 rounded-xl flex flex-col gap-5">
+            <h3 class="text-lg font-bold text-zinc-900 m-0">Dashboard Embed</h3>
+            <p class="text-[0.875rem] text-zinc-500 m-0 leading-relaxed">
+              Paste your Umami Share URL here to view your analytics right inside this dashboard.
+            </p>
+            <div class="flex flex-col gap-1.5">
+              <label for="dash-umami-share" class="text-[0.82rem] font-semibold text-zinc-700">Share URL</label>
+              <input
+                id="dash-umami-share"
+                type="url"
+                bind:value={formUmamiShareUrl}
+                placeholder="https://umami-selfhost.lsskincare.cloud/share/..."
+                class="p-3 border-[1.5px] border-zinc-200 rounded-xl text-[0.875rem] text-zinc-900 bg-white outline-none focus:border-zinc-900 w-full"
+              />
+            </div>
+
+            {#if formUmamiShareUrl}
+              <div class="w-full mt-4 rounded-xl overflow-hidden border-[1.5px] border-zinc-200 bg-zinc-50" style="height: 600px;">
+                <iframe
+                  src={formUmamiShareUrl}
+                  title="Umami Analytics"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  class="w-full h-full"
+                ></iframe>
+              </div>
+            {/if}
+          </div>
         </div>
 
         <!-- ── Template Tab ── -->

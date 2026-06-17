@@ -63,6 +63,8 @@ publicProfile.get("/:username", async (c) => {
       bio: user.profile.bio,
       avatar: user.profile.avatarUrl,
       templateSlug: user.profile.templateSlug,
+      umamiScriptUrl: user.profile.umamiScriptUrl,
+      umamiWebsiteId: user.profile.umamiWebsiteId,
       links: user.profile.links,
       socials: user.profile.socials,
     };
@@ -115,6 +117,9 @@ protectedProfile.get("/", async (c) => {
       bio: profile.bio,
       avatar: profile.avatarUrl,
       templateSlug: profile.templateSlug,
+      umamiShareUrl: profile.umamiShareUrl,
+      umamiScriptUrl: profile.umamiScriptUrl,
+      umamiWebsiteId: profile.umamiWebsiteId,
       links: profile.links,
       socials: profile.socials,
       isPublic: profile.isPublic,
@@ -175,6 +180,9 @@ protectedProfile.put("/", async (c) => {
           ...(profileData.avatarUrl !== undefined && { avatarUrl: profileData.avatarUrl || null }),
           ...(profileData.templateSlug !== undefined && { templateSlug: profileData.templateSlug }),
           ...(profileData.isPublic !== undefined && { isPublic: profileData.isPublic }),
+          ...(profileData.umamiShareUrl !== undefined && { umamiShareUrl: profileData.umamiShareUrl || null }),
+          ...(profileData.umamiScriptUrl !== undefined && { umamiScriptUrl: profileData.umamiScriptUrl || null }),
+          ...(profileData.umamiWebsiteId !== undefined && { umamiWebsiteId: profileData.umamiWebsiteId || null }),
         },
       });
 
@@ -239,6 +247,9 @@ protectedProfile.put("/", async (c) => {
       bio: updatedProfile.bio,
       avatar: updatedProfile.avatarUrl,
       templateSlug: updatedProfile.templateSlug,
+      umamiShareUrl: updatedProfile.umamiShareUrl,
+      umamiScriptUrl: updatedProfile.umamiScriptUrl,
+      umamiWebsiteId: updatedProfile.umamiWebsiteId,
       links: updatedProfile.links,
       socials: updatedProfile.socials,
       isPublic: updatedProfile.isPublic,

@@ -29,10 +29,13 @@ model Profile {
   displayName   String   @map("display_name")
   bio           String?
   avatarUrl     String?  @map("avatar_url")
-  templateSlug  String   @default("minimalist") @map("template_slug")
-  isPublic      Boolean  @default(true) @map("is_public")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
+  templateSlug   String   @default("minimalist") @map("template_slug")
+  isPublic       Boolean  @default(true) @map("is_public")
+  umamiShareUrl  String?  @map("umami_share_url")
+  umamiScriptUrl String?  @map("umami_script_url")
+  umamiWebsiteId String?  @map("umami_website_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
 
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   links   Link[]
