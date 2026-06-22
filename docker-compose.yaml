@@ -13,7 +13,7 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
-      CORS_ORIGIN: ${CORS_ORIGIN}
+      CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
       - "3001:3001"
     extra_hosts:

@@ -488,7 +488,20 @@
             </div>
 
             {#if formUmamiShareUrl}
-              <div class="w-full mt-4 rounded-xl overflow-hidden border-[1.5px] border-zinc-200 bg-zinc-50" style="height: 600px;">
+              <div class="flex items-center justify-between mt-2">
+                <span class="text-[0.8rem] text-zinc-500">
+                  Preview:
+                </span>
+                <a
+                  href={formUmamiShareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[0.8rem] font-semibold text-zinc-900 bg-zinc-100 hover:bg-zinc-200 px-3 py-1.5 rounded-lg transition-colors no-underline"
+                >
+                  Buka di Tab Baru ↗
+                </a>
+              </div>
+              <div class="w-full mt-2 rounded-xl overflow-hidden border-[1.5px] border-zinc-200 bg-zinc-50 relative" style="height: 600px;">
                 <iframe
                   src={formUmamiShareUrl}
                   title="Umami Analytics"
